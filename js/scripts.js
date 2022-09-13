@@ -23,7 +23,7 @@ let character = [{
   {
   name: 'Sebastian', 
   Bithday: 10, 
-  gift: 'Frozen Tear'
+  gift: 'Frozen Tear', 'Obsidian'
 },
   {
   name: 'Shane', 

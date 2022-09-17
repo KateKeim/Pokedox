@@ -30,3 +30,15 @@ let characterList = [
 'gift': 'Beer'
 }
 ]
+
+let open = '('
+let close = ')'
+
+for (let i=0; i < characterList.length; i++){
+  document.write(characterList[i].name + ' ');
+  document.write(open + 'Birthday' + characterList[i].birthday + close + '<br />');
+}
+
+if (characterList.name = 'Harvey'){
+  document.write('<h3>He is a doctor!</h3>');
+}

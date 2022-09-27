@@ -34,11 +34,13 @@ let characterList = [
 let open = '('
 let close = ')'
 
-for (let i=0; i < characterList.length; i++){
-  document.write(characterList[i].name + ' ');
-  document.write(open + 'Birthday' + characterList[i].birthday + close + '<br />');
+let character = ''; // declare a empty variable
+// for loop that iterates each character in the above array
+for(let i = 0; i < characterList.length; i++) {
+// added condition for the character length > 5
+if (characterList.length > 5) {
+character = <p class='character-list'>${characterList[i].name} ${open} Birthday: ${characterList[i].Birthday} ${close} ${characterList[i].gift};
+} else {
+document.write(<p class='character-list'>${characterList[i].name} ${open} Birthday: ${characterList[i].Birthday}${close}</p>);
 }
-
-if (characterList.name = 'Harvey'){
-  document.write('<h3>He is a doctor!</h3>');
 }

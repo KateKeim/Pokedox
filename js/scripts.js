@@ -39,7 +39,7 @@ let character = ''; // declare a empty variable
 for(let i = 0; i < characterList.length; i++) {
 // added condition for the character length > 5
 if (characterList.length > 5) {
-character = <p class='character-list'>${characterList[i].name} ${open} Birthday: ${characterList[i].Birthday} ${close} ${characterList[i].gift};
+character = <p class='character-list'>${characterList[i].name} ${open} Birthday: ${characterList[i].Birthday} ${close} ${characterList[i].gift};</p>
 } else {
 document.write(<p class='character-list'>${characterList[i].name} ${open} Birthday: ${characterList[i].Birthday}${close}</p>);
 }

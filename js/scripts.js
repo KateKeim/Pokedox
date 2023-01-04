@@ -31,22 +31,27 @@ let characterList = [
     "gift": 'Beer'
     }
     ]
+
+// chang for to forEach
+characterList.forEach(function(character){
+    console.log(character.name + " " + "Birthday " 
+    + character.Birthday + " " + "Gift " + character.gift);
+});
+    
     
     let open = '('
     let close = ')'
     let character = ''; // declare a empty variable
     let comment = 'He is a doctor!'; //note to add
-    let birthday = characterList.Birthday;
+    let birthday = character.Birthday;
 
-    // for loop that iterates each character in the above array
-    for(let i = 0; i < characterList.length; i++) {
     // added condition for the character length > 5
-    if (characterList[i].Birthday == 14) {
-    character = `<p class='character-list'>${characterList[i].name} 
-        ${open} Birthday: ${characterList[i].Birthday} ${close} ${comment} </p>`;
-    document.write(character);
-    } else {
-    document.write(`<p class='character-list'>${characterList[i].name} 
-        ${open} Birthday: ${characterList[i].Birthday}${close}</p>`);
-    }
-    }
+    //if (characterList[i].Birthday == 14) {
+    //character = `<p class='character-list'>${characterList[i].name} 
+        //${open} Birthday: ${characterList[i].Birthday} ${close} ${comment} </p>`;
+    //document.write(character);
+    //} else {
+    //document.write(`<p class='character-list'>${characterList[i].name} 
+        //${open} Birthday: ${characterList[i].Birthday}${close}</p>`);
+    //}
+

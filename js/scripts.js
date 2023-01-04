@@ -1,4 +1,7 @@
 //This array contains Character data from Stardew Valley game to display in application.
+//Wrap array to local scope
+
+let characterRepository = (function fun() {
 let characterList = [
     {
     "name": 'Alex',
@@ -30,28 +33,19 @@ let characterList = [
     "Birthday": 20,
     "gift": 'Beer'
     }
-    ]
+    ];
 
-// chang for to forEach
-characterList.forEach(function(character){
-    console.log(character.name + " " + "Birthday " 
-    + character.Birthday + " " + "Gift " + character.gift);
-});
-    
-    
-    let open = '('
-    let close = ')'
-    let character = ''; // declare a empty variable
-    let comment = 'He is a doctor!'; //note to add
-    let birthday = character.Birthday;
+    //IIFE
+        return {
+            add: function(character) {
+                characterList.push(character);
+            },
+            getAll: function() {
+                return characterList;
+            }
+        };
+    })();
 
-    // added condition for the character length > 5
-    //if (characterList[i].Birthday == 14) {
-    //character = `<p class='character-list'>${characterList[i].name} 
-        //${open} Birthday: ${characterList[i].Birthday} ${close} ${comment} </p>`;
-    //document.write(character);
-    //} else {
-    //document.write(`<p class='character-list'>${characterList[i].name} 
-        //${open} Birthday: ${characterList[i].Birthday}${close}</p>`);
-    //}
-
+    console.log(characterRepository.getAll());
+    characterRepository.add({ name: 'Lewis'});
+    console.log(characterRepository.getAll());

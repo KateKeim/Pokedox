@@ -1,7 +1,7 @@
 //This array contains Character data from Stardew Valley game to display in application.
 //Wrap array to local scope
 
-let characterRepository = (function fun() {
+let characterRepository = (function () {
 let characterList = [
     {
     "name": 'Alex',
@@ -35,17 +35,20 @@ let characterList = [
     }
     ];
 
-    //IIFE
-        return {
-            add: function(character) {
-                characterList.push(character);
-            },
-            getAll: function() {
-                return characterList;
-            }
-        };
-    })();
+    characterList.forEach(character => console.log(character));
 
-    console.log(characterRepository.getAll());
-    characterRepository.add({ name: 'Lewis'});
-    console.log(characterRepository.getAll());
+    //add a character to the characterLst array
+    return {
+        add: function(character) {
+            characterList.push(character);
+        },
+        getAll: function() {
+            return characterList;
+        }
+    };
+})();
+
+console.log(characterRepository.getAll());
+characterRepository.add({ name: 'Lewis'});
+console.log(characterRepository.getAll());
+

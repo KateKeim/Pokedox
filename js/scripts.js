@@ -81,3 +81,5 @@ function printDetails (character) {
     }
     document.write('Name: ' + character.name +  highlight + '<br> ' + 'Birthday ' + character.Birthday + '<br> ' + 'Gift for him: ' + character.gift + '<br>' + '<br>')
 }
+
+//Deploy to GitHub Pages again drue to error

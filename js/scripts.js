@@ -3,8 +3,7 @@
 //Exercise 1.5 Part2.2: create Repository to hold IIFE
 let characterRepository = (function(){  
 //Exercise 1.5 Part 2.1: wrap characterList in an IIFE      
-let characterList = 
-    [
+let characterList = [
         {
             "name": 'Alex',
             "Birthday": 13,
@@ -37,6 +36,20 @@ let characterList =
         }
     ];
 
+//Bonus Task 1.5: check if the typeof parameter is an object: only add if it an object
+function add(character){
+    if (
+    typeof character === "object" &&
+    "name" in character &&
+    "Birthday" in character &&
+    "gift" in character
+    ) {
+    characterList.push(character);
+    } else {
+        console.log("characters type is wrong");
+    }
+}
+
 //1.5 Task part 1: use forEach instead of for
     /*characterList.forEach(function(character){
         document.write('Name: ' + character.name +'<br> ' + 'Birthday ' + character.Birthday + '<br> ' + 'Gift for him: ' + character.gift + '<br>');
@@ -53,17 +66,33 @@ function getAll(){
         characterList.push(character);
     }
 
-
+//DOM Manipulation Practice
+    function addListItem(character){
+    let characterDex = document.querySelector('.character-list');
+    let listCharacter = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = character.name;
+    button.classList.add("button-class");
+    listCharacter.appendChild(button);
+    characterDex.appendChild(listCharacter);
+    }
 
     return {
         getAll: getAll,
-        add: add
+        add: add,
+        addListItem: addListItem
     };
 
 })();
 
-console.log(characterRepository.getAll());
-characterRepository.add({name: 'Lewis'});
+//Bonus Task 1.5: add character via .add to the list
+characterRepository.add({name:'Abigail', Birthday: 13, gift: 'Amethyst'});
+characterRepository.add({name:'Emily', Birthday: 27, gift: 'Amethyst'});
+characterRepository.add({name:'Haley', Birthday: 14, gift: 'Coconut'});
+characterRepository.add({name:'Leah', Birthday: 23, gift: 'Goat Cheese'});
+characterRepository.add({name:'Maru', Birthday: 10, gift: 'Battery Pack'});
+characterRepository.add({name:'Penny', Birthday: 2, gift: 'Diamond'});
+
 console.log(characterRepository.getAll());
 
 //Exercise 1.5 Part 2.4: make sure both function are defined sepelately
@@ -71,15 +100,19 @@ console.log(characterRepository.getAll());
 console.log(characterRepository.add());
 
 //Exercise 1.5 Part 2.5:Outside of and below the IIFE, have a forEach() loop
-let characterList = characterRepository.getAll();
 
-characterList.forEach(printDetails);
-function printDetails (character) {
-    let highlight = '';
-    if (character.Birthday == 14) {
-        highlight = ' - He is a doctor!';
-    }
-    document.write('Name: ' + character.name +  highlight + '<br> ' + 'Birthday ' + character.Birthday + '<br> ' + 'Gift for him: ' + character.gift + '<br>' + '<br>')
-}
+/*characterRepository.getAll().forEach(function(character){
+    var highlight = '';
+    if (character.gift == 'Beer') {
+        highlight = " He loves drinking!";
+    } 
+    document.write('Name: ' + character.name +  highlight + '<br> ' + 'Birthday ' + character.Birthday + '<br> ' + 'Best gifts: ' + character.gift + '<br>' + '<br>')
+});*/
 
-//Deploy to GitHub Pages again drue to error
+//DOM Manipulation Practice
+characterRepository.getAll().forEach(function(character){
+    characterRepository.addListItem(character);
+});
+
+
+

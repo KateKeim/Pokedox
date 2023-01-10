@@ -57,16 +57,16 @@ function add(character){
 
 //Exercise 1.5 Part 2.3: assigned key getAll = show characterList.array
 
-function getAll(){
-    return characterList;
-}
+    function getAll(){
+        return characterList;
+    }
 
 //Exercise 1.5 Part 2.3: assigned key add = add an new item
     function add(character){
         characterList.push(character);
     }
 
-//DOM Manipulation Practice
+//Task 1.6: create an addListItem function and button for character
     function addListItem(character){
     let characterDex = document.querySelector('.character-list');
     let listCharacter = document.createElement("li");
@@ -75,9 +75,20 @@ function getAll(){
     button.classList.add("button-class");
     listCharacter.appendChild(button);
     characterDex.appendChild(listCharacter);
+    
+    //add an event listener to button
+    button.addEventListener('click', function (event){
+        showDetails(character);
+    })
+
+//Task 1.6: create showDetails function
+    function showDetails(character) {
+        console.log(character);
     }
 
-    return {
+    }
+
+   return {
         getAll: getAll,
         add: add,
         addListItem: addListItem
@@ -93,26 +104,14 @@ characterRepository.add({name:'Leah', Birthday: 23, gift: 'Goat Cheese'});
 characterRepository.add({name:'Maru', Birthday: 10, gift: 'Battery Pack'});
 characterRepository.add({name:'Penny', Birthday: 2, gift: 'Diamond'});
 
-console.log(characterRepository.getAll());
-
 //Exercise 1.5 Part 2.4: make sure both function are defined sepelately
 console.log(characterRepository.getAll());
 console.log(characterRepository.add());
 
-//Exercise 1.5 Part 2.5:Outside of and below the IIFE, have a forEach() loop
+//Task 1.6: use forEach to run the button for each character
 
-/*characterRepository.getAll().forEach(function(character){
-    var highlight = '';
-    if (character.gift == 'Beer') {
-        highlight = " He loves drinking!";
-    } 
-    document.write('Name: ' + character.name +  highlight + '<br> ' + 'Birthday ' + character.Birthday + '<br> ' + 'Best gifts: ' + character.gift + '<br>' + '<br>')
-});*/
-
-//DOM Manipulation Practice
 characterRepository.getAll().forEach(function(character){
     characterRepository.addListItem(character);
 });
-
 
 

@@ -16,10 +16,10 @@ function getAll(){
 //Task 1.6: create an addListItem function and button for character
 function addListItem(character){
     let characterDex = document.querySelector('.character-list');
-    let listCharacter = document.createElement("li");
+    let listCharacter = document.createElement("ul");
     let button = document.createElement("button");
     button.classList.add("button-class");
-    button.innerText = characterList.name
+    button.innerText = character.name;
     listCharacter.appendChild(button);
     characterDex.appendChild(listCharacter);
 
@@ -38,6 +38,7 @@ function showDetails(character) {
         
 }
 
+//add function to download deta from the link above
 function loadList() {
     return fetch(apiUrl).then(function (response){
         return response.json();
@@ -81,24 +82,6 @@ characterRepository.loadList().then(function() {
     characterRepository.getAll().forEach(function(character){
         characterRepository.addListItem(character);
     });
-});
-
-//Bonus Task 1.5: add character via .add to the list
-/*characterRepository.add({name:'Abigail', Birthday: 13, gift: 'Amethyst'});
-characterRepository.add({name:'Emily', Birthday: 27, gift: 'Amethyst'});
-characterRepository.add({name:'Haley', Birthday: 14, gift: 'Coconut'});
-characterRepository.add({name:'Leah', Birthday: 23, gift: 'Goat Cheese'});
-characterRepository.add({name:'Maru', Birthday: 10, gift: 'Battery Pack'});
-characterRepository.add({name:'Penny', Birthday: 2, gift: 'Diamond'});*/
-
-//Exercise 1.5 Part 2.4: make sure both function are defined sepelately
-console.log(characterRepository.getAll());
-console.log(characterRepository.add());
-
-//Task 1.6: use forEach to run the button for each character
-
-characterRepository.getAll().forEach(function(character){
-    characterRepository.addListItem(character);
 });
 
 

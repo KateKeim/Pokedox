@@ -68,14 +68,68 @@ function loadDetails(item) {
         });
 }
 
+//to show modal of pokemon details
+function showModal(title, text, img) {
+    let modalContainer = document.querySelector('#modal-container');
+    modalContainer.innerHTML = '';
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+    //create close button element for exiting
+    let closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'Close';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    let titleElement = document.createElement('h1');
+    titleElement.innerText = title;
+    let contentElement = document.createElement('p');
+    contentElement.innerText = text;
+    let imgElement = document.createElement('img');
+    imgElement.setAttribute("src", img);
+    imgElement.setAttribute("alt", " How this pokemon looks!");
+
+
+    //crate all modal above
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modal.appendChild(imgElement);
+    modalContainer.appendChild(modal);
+    modalContainer.classList.add('is-visible');
+    modalContainer.addEventListener('click', (e)=>{
+        let target = e.target;
+        if (target === modalContainer) {
+            hideModal();
+        }
+    });
+}
+
+//to hide modal
+function hideModal(){
+    let modalContainer = document.querySelector('#modal-container');
+    modalContainer.classList.remove('is-visible');
+}
+window.addEventListener('keydown', (e) => {
+    let modalContainer = document.querySelector('#modal-container');
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
+        hideModal();
+    }
+});
+
+function showDetails(character){
+    loadDetails(character).then(function(){
+        showModal(character.name,character.name + "'s height: " + character.height, character.imageUrl);
+    });
+}
+
 return {
-        getAll: getAll,
-        add: add,
-        addListItem: addListItem,
-        showDetails: showDetails,
-        loadList: loadList,
-        loadDetails: loadDetails
-    };
+    add: add,
+    getAll: getAll,
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
+};
 })();
 
 characterRepository.loadList().then(function() {

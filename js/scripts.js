@@ -147,4 +147,3 @@ characterRepository.loadList().then(function() {
     });
 });
 
-

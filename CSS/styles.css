@@ -1,12 +1,16 @@
-body {
-    font-family: sans-serif;
-    background-image: url(/images/background.jpg);
-    margin: 0;
+html{
+    background-color: #03001C;
+    text-align: center;
 }
 
-html {
-    background-color: blanchedalmond;
-    text-align: center;
+body{
+    background-color: #00425A;
+}
+
+main{
+    max-width: 80%;
+    margin: 20px auto;
+
 }
 
 .button-class {
@@ -27,14 +31,13 @@ html {
 }
 
 #modal-container.is-visible {
-    position: fixed;
+    position: absolute;
     padding: 20px;
     box-sizing: border-box;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: aquamarine;
     z-index: 999;
     overflow: auto;
     display: grid;
@@ -42,14 +45,17 @@ html {
 }
 
 .modal {
+    position: static;
     margin: auto;
     display: inline-block;
     box-sizing: border-box;
-    background: #fff;
+    background: #EDDBC7;
     padding: 15px;
     width: 100%;
     max-width: 500px;
-    text-align: left;
+    max-height: 250px;
+    border-radius: 5%;
+    text-align: cen;
 }
 
 .modal-close {

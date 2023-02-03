@@ -10,18 +10,19 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-lg bg-body-tertiary">
-        <a class="navbar-brand" href="#">Pokedex</a>
+    <nav class="navbar navbar-lg bg-body-tertiary col-xl-12">
+        <a class="navbar-brand mx-3" href="#">Pokedex</a>
           <form class="d-flex navbar-form form-inline" role="search">
-            <input class="form-control search me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input id="mySearch" placeholder= Search.. class="form-control search me-3" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success mx-2" type="submit">Search</button>
           </form>
       </div>
     </nav>
 
-    <main>
+
+    <main class="col-12 col-md-6">
       <div id="image-container"></div>
-      <ul class="character-list list-group list-group-horizontal row"></ul>
+      <ul id="myMenu" class="character-list list-group list-group-horizontal row"></ul>
       <div class="loader"></div>
       <div class="modal fade" tabindex="-1" aria-labelledby="modal-containerLabel" aria-hidden="true"></div>
       <div class="modal-content" id="modal-container"></div>

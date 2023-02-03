@@ -4,6 +4,7 @@ let characterRepository = (function() {
     //add pokemon API link
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
     let modalContainer = document.querySelector('#modal-container');
+    let inputField = document.querySelector('#mySearch');
 
     
     //Bonus Task 1.5: check if the typeof parameter is an object: only add if it an object
@@ -22,11 +23,16 @@ let characterRepository = (function() {
         let listCharacter = document.createElement('il');
         let button = document.createElement('button');
         button.innerText = character.name.charAt(0).toUpperCase() + character.name.slice(1);
-        listCharacter.classList.add('col-2');
-        button.classList.add('col-9');
+        listCharacter.classList.add('col-xl-3');
+        listCharacter.classList.add('col-lg-4');
+        listCharacter.classList.add('row');
+        listCharacter.classList.add('align-items-start');
+        listCharacter.classList.add('pokemon');
+        button.classList.add('col');
         button.classList.add('btn');
         button.classList.add('btn-outline-light');
         button.classList.add('mb-2');
+        button.classList.add('mx-2');
         
         listCharacter.appendChild(button);
         characterDex.appendChild(listCharacter);
@@ -55,7 +61,32 @@ let characterRepository = (function() {
             })
     }
 
-    
+    function removeList() {
+        characterDex.innerHTML = '';
+      }
+
+      //function to make the search bar works
+      function filterPokemons(query) {
+        return characterList.filter(function (character) {
+          // toLowerCase() method to make input not case-sensitive
+          let pokemonLowerCase = character.name.toLowerCase();
+          let queryLowerCase = query.toLowerCase();
+          return pokemonLowerCase.startsWith(queryLowerCase);
+        });
+      }
+      
+    inputField.addEventListener('input', function() {
+        let query = inputField.value;
+        let filterList = filterPokemons(query);
+        removeList();
+        if (filterList.length === 0) {
+            showErrorMessage(
+                'Sorry. No Pokemon match your search');
+        } else {
+            filterList.forEach(loadList);
+        }
+      });
+
     function loadDetails(item) {
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
@@ -63,7 +94,8 @@ let characterRepository = (function() {
             }).then(function (details){
                 item.imageUrl = details.sprites.front_default;
                 item.height = details.height;
-                item.types = details.types;
+                item.types = details.types.map((type)=>type.type.name);
+                item.abilities = details.abilities.map((abilities) => abilities.ability.name);
             }).catch(function(e) {
                 console.error(e);
             });
@@ -129,15 +161,8 @@ let characterRepository = (function() {
         }
     });
     
-    
-    fetch('https://pokeapi.co/api/v2/pokemon/?limit=150').then(function (response) {
-        return response.json();
-    }).then(function (characterList) {
-        console.log(characterList);
-    }).catch(function () {
-    
-    });
-    
+
+
     return {
         getAll: getAll,
         add: add,

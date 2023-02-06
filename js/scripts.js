@@ -3,9 +3,7 @@ let characterRepository = (function() {
     let characterList = [];
     //add pokemon API link
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-    let modalContainer = document.querySelector('#modal-container');
-    let inputField = document.querySelector('#mySearch');
-
+    let modalContainer = $('#modal-container');
     
     //Bonus Task 1.5: check if the typeof parameter is an object: only add if it an object
     function getAll(){ 
@@ -19,23 +17,18 @@ let characterRepository = (function() {
     
     //Task 1.6: create an addListItem function and button for character
     function addListItem(character){
-        let characterDex = document.querySelector('.character-list');
-        let listCharacter = document.createElement('il');
+        let characterDex = $('.character-list');
+        let listCharacter = $('<li class="col-xl-3 col-lg-4 row align-item-start pokemon"></li>');
         let button = document.createElement('button');
         button.innerText = character.name.charAt(0).toUpperCase() + character.name.slice(1);
-        listCharacter.classList.add('col-xl-3');
-        listCharacter.classList.add('col-lg-4');
-        listCharacter.classList.add('row');
-        listCharacter.classList.add('align-items-start');
-        listCharacter.classList.add('pokemon');
-        button.classList.add('col');
-        button.classList.add('btn');
-        button.classList.add('btn-outline-light');
-        button.classList.add('mb-2');
-        button.classList.add('mx-2');
+        $(button).addClass('col');
+        $(button).addClass('btn');
+        $(button).addClass('btn-outline-light');
+        $(button).addClass('mb-2');
+        $(button).addClass('mx-2');
         
-        listCharacter.appendChild(button);
-        characterDex.appendChild(listCharacter);
+        $(listCharacter).append(button);
+        $(characterDex).append(listCharacter);
     
         
         //add an event listener to button
@@ -61,30 +54,15 @@ let characterRepository = (function() {
             })
     }
 
-    function removeList() {
-        characterDex.innerHTML = '';
-      }
 
-      //function to make the search bar works
-      function filterPokemons(query) {
-        return characterList.filter(function (character) {
-          // toLowerCase() method to make input not case-sensitive
-          let pokemonLowerCase = character.name.toLowerCase();
-          let queryLowerCase = query.toLowerCase();
-          return pokemonLowerCase.startsWith(queryLowerCase);
-        });
-      }
-      
-    inputField.addEventListener('input', function() {
-        let query = inputField.value;
-        let filterList = filterPokemons(query);
-        removeList();
-        if (filterList.length === 0) {
-            showErrorMessage(
-                'Sorry. No Pokemon match your search');
-        } else {
-            filterList.forEach(loadList);
-        }
+    //   //function to make the search bar works
+
+      $('#mySearch').on('input',function(e) {
+        const value = e.target.value
+        users.forEach(character => {
+            const isVisible = $.contains(value);
+            console.log(isVisible);
+        })
       });
 
     function loadDetails(item) {
@@ -111,10 +89,10 @@ let characterRepository = (function() {
 
     //to show modal of pokemon details
     function showModal(character) {
-        modalContainer.innerHTML = '';
+        $(modalContainer).html = '';
     
-        let modal = document.createElement('div');
-        modal.classList.add('modal');
+        let modal = $('<div></div>');
+        $(modal).addClass('modal');
     
         //create close button element for exiting
         let closeButtonElement = document.createElement('button');
@@ -134,27 +112,26 @@ let characterRepository = (function() {
     
     
         //crate all modal above
-        modal.appendChild(closeButtonElement);
-        modal.appendChild(titleElement);
-        modal.appendChild(contentElement);
-        modal.appendChild(imgElement);
-        modalContainer.appendChild(modal);
-    
-        modalContainer.classList.add('is-visible');
+        $(modal).append(closeButtonElement);
+        $(modal).append(titleElement);
+        $(modal).append(contentElement);
+        $(modal).append(imgElement);
+        $(modalContainer).append(modal);
+        $(modalContainer).addClass('is-visible');
             }
     
     //to hide modal
     function hideModal(){
-        modalContainer.classList.remove('is-visible');
+        $(modalContainer).fadeOut('.is-visible');
     }
     
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
+    $(window).keydown(function(e) {
+        if (e.key === 'Escape' && $(modalContainer).hasClass('.is-visible')){
             hideModal();
         }
     });
     
-    modalContainer.addEventListener('click', (e) => {
+    $(modalContainer).click(function(e) {
         let target = e.target;
         if (target === modalContainer) {
             hideModal();
@@ -174,8 +151,9 @@ let characterRepository = (function() {
     })();
     
     characterRepository.loadList().then(function() {
-        characterRepository.getAll().forEach(function(character){
+        users = characterRepository.getAll().map(function(character){
             characterRepository.addListItem(character);
+            return(character.name)
         });
     });
     

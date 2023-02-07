@@ -19,20 +19,14 @@ let characterRepository = (function() {
     function addListItem(character){
         let characterDex = $('.character-list');
         let listCharacter = $('<li class="col-xl-3 col-lg-4 row align-item-start pokemon"></li>');
-        let button = document.createElement('button');
-        button.innerText = character.name.charAt(0).toUpperCase() + character.name.slice(1);
-        $(button).addClass('col');
-        $(button).addClass('btn');
-        $(button).addClass('btn-outline-light');
-        $(button).addClass('mb-2');
-        $(button).addClass('mx-2');
-        
+        let button = $('<button class="col btn btn-outline-light mb-2 mx2">');
+        $(button).text(character.name.charAt(0).toUpperCase() + character.name.slice(1));
         $(listCharacter).append(button);
         $(characterDex).append(listCharacter);
     
         
         //add an event listener to button
-        button.addEventListener('click', function (event) {
+        $(button).click (function (event) {
             showDetails(character);
         });
     }
@@ -55,16 +49,6 @@ let characterRepository = (function() {
     }
 
 
-    //   //function to make the search bar works
-
-      $('#mySearch').on('input',function(e) {
-        const value = e.target.value
-        users.forEach(character => {
-            const isVisible = $.contains(value);
-            console.log(isVisible);
-        })
-      });
-
     function loadDetails(item) {
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
@@ -81,7 +65,7 @@ let characterRepository = (function() {
     
     //Task 1.6: create showDetails function
     function showDetails(character) {
-        characterRepository.loadDetails(character).then(function (){
+        characterRepository.loadDetails(character).then(function() {
             showModal(character);
         });
             
@@ -91,21 +75,19 @@ let characterRepository = (function() {
     function showModal(character) {
         $(modalContainer).html = '';
     
-        let modal = $('<div></div>');
-        $(modal).addClass('modal');
+        let modal = $('<div class="modal"></div>');
     
         //create close button element for exiting
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.innerText = 'Close';
-        closeButtonElement.addEventListener('click', hideModal);
+        let closeButtonElement = $('<button class = "modal-close"></button>');
+        $(closeButtonElement).text('Close');
+        $(closeButtonElement).on('click', hideModal);
     
         let titleElement = document.createElement('h1');
         titleElement.innerText = character.name;
     
         let contentElement = document.createElement('p');
-        contentElement.innerText = 'Height: ' + character.height;
-    
+        contentElement.innerText = 'Height: ' + character.height + ('\n') + 'Type: ' + character.types + ('\n') + 'Abilities: ' + character.abilities;
+
         let imgElement = document.createElement('img');
         imgElement.src = character.imageUrl;
     
@@ -122,11 +104,11 @@ let characterRepository = (function() {
     
     //to hide modal
     function hideModal(){
-        $(modalContainer).fadeOut('.is-visible');
+        $(modalContainer).removeClass('is-visible');
     }
     
     $(window).keydown(function(e) {
-        if (e.key === 'Escape' && $(modalContainer).hasClass('.is-visible')){
+        if (e.key === 'Escape' && $(modalContainer).hasClass('is-visible')){
             hideModal();
         }
     });
@@ -151,10 +133,36 @@ let characterRepository = (function() {
     })();
     
     characterRepository.loadList().then(function() {
-        users = characterRepository.getAll().map(function(character){
+        characterRepository.getAll().map(function(character){
             characterRepository.addListItem(character);
-            return(character.name)
         });
     });
     
-    
+    let filter = $('#mySearch');
+    let noResult = $('<h3></h3>');
+    $(noResult).text('No Pokemon found');
+    $(filter).on('input', () => {
+        let list = $('.character-list');
+        let value = filter.value.toLowerCase();
+        listItem = list.getElementByTagName('li');
+        let isPokemonFound = false;
+
+        for(i=0; i<listItem.length; i++) {
+            let button = listItem[i].getElementByTagName('button')[0];
+            let pokemon = button.textContent || button.innerText;
+
+            if(pokemon.toLowerCase().indexOf(value)>-1) {
+                listItem[i].style.display="";
+                isPokemonFound = true;
+            } else {
+                listItem[i].style.display="none";
+            }
+        }
+            if(!isPokemonFound){
+                list.appendChild(noResult);
+            }
+
+            if(list.contains(noResult)&&isPokemonFound){
+                list.removeChild(noResult)
+            }
+    });

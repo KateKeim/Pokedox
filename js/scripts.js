@@ -83,7 +83,7 @@ let characterRepository = (function() {
         $(closeButtonElement).on('click', hideModal);
     
         let titleElement = document.createElement('h1');
-        titleElement.innerText = character.name;
+        titleElement.innerText = character.name.charAt(0).toUpperCase() + character.name.slice(1);
     
         let contentElement = document.createElement('p');
         contentElement.innerText = 'Height: ' + character.height + ('\n') + 'Type: ' + character.types + ('\n') + 'Abilities: ' + character.abilities;
@@ -137,32 +137,37 @@ let characterRepository = (function() {
             characterRepository.addListItem(character);
         });
     });
-    
-    let filter = $('#mySearch');
-    let noResult = $('<h3></h3>');
-    $(noResult).text('No Pokemon found');
-    $(filter).on('input', () => {
-        let list = $('.character-list');
-        let value = filter.value.toLowerCase();
-        listItem = list.getElementByTagName('li');
-        let isPokemonFound = false;
 
-        for(i=0; i<listItem.length; i++) {
-            let button = listItem[i].getElementByTagName('button')[0];
-            let pokemon = button.textContent || button.innerText;
+    let filter = document.querySelector('#mySearch');
+    let noResults = document.createElement('h3');
+    noResults.innerText = "No Pokémon found.";
+    noResults.style.color = 'white';
 
-            if(pokemon.toLowerCase().indexOf(value)>-1) {
-                listItem[i].style.display="";
-                isPokemonFound = true;
-            } else {
-                listItem[i].style.display="none";
-            }
-        }
-            if(!isPokemonFound){
-                list.appendChild(noResult);
-            }
+    filter.addEventListener('input', () => {
 
-            if(list.contains(noResult)&&isPokemonFound){
-                list.removeChild(noResult)
-            }
+    let list = document.querySelector('.character-list');
+
+    let value = filter.value.toLowerCase();
+    listItems = list.getElementsByTagName('li');
+    let isPokemonFound = false;
+
+    for (let i = 0; i < listItems.length; i++) {
+    let button = listItems[i].getElementsByTagName('button')[0];
+    let pokemon = button.textContent || button.innerText;
+
+    if (pokemon.toLowerCase().indexOf(value) > -1) {
+    listItems[i].style.display = "";
+    isPokemonFound = true;
+    } else {
+    listItems[i].style.display = "none";
+    }
+    }
+
+    if (!isPokemonFound) {
+    list.appendChild(noResults);
+    }
+
+    if (list.contains(noResults) && isPokemonFound) {
+    list.removeChild(noResults)
+    }
     });

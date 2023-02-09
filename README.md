@@ -1,4 +1,4 @@
-<h1>Pokedex App</h1>
+<h1>Pokedex Website</h1>
 
 ![Screenshot](Screenshotpokedex.JPG)
 
@@ -10,13 +10,20 @@ You can also search for a pokemnon by its name.
 
 This app was developed to learn the basics of JavaScript.
 
-##Used technologies
-HTML
-CSS
-JavaScript
-Ajax
-jQuery
-Bootstrap
+## Used technologies
 
-##Link to the live version
+- HTML
+
+- CSS
+
+- JavaScript
+
+- Ajax
+
+- jQuery
+
+- Bootstrap
+
+## Link to the live version
+
 The online hosted version of this app can be found here: [Pokedex Website](https://katekeim.github.io/JavaScript/)

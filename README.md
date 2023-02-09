@@ -1,6 +1,6 @@
 <h1>Pokedex App</h1>
 
-![Screenshot](Screenshot pokedex.jpg)
+![Screenshot](Screenshotpokedex.JPG)
 
 This app shows a list of all pokemons loaded from the RESTful Pokémon API.
 

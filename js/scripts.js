@@ -20,13 +20,15 @@ let characterRepository = (function() {
         let characterDex = $('.character-list');
         let listCharacter = $('<li class="col-xl-3 col-lg-4 row align-item-start pokemon"></li>');
         let button = $('<button class="col btn btn-outline-light mb-2 mx2">');
-        $(button).text(character.name.charAt(0).toUpperCase() + character.name.slice(1));
-        $(listCharacter).append(button);
-        $(characterDex).append(listCharacter);
+        let closeButtonElement = $('<button class = "modal-close"></button>');
+        closeButtonElement.text('Close');
+        button.text(character.name.charAt(0).toUpperCase() + character.name.slice(1));
+        listCharacter.append(button);
+        characterDex.append(listCharacter);
     
         
         //add an event listener to button
-        $(button).click (function (event) {
+        button.click (function (event) {
             showDetails(character);
         });
     }
@@ -73,14 +75,14 @@ let characterRepository = (function() {
 
     //to show modal of pokemon details
     function showModal(character) {
-        $(modalContainer).html = '';
+        modalContainer.empty(); // clear the old content for the selected element 
     
         let modal = $('<div class="modal"></div>');
     
         //create close button element for exiting
-        let closeButtonElement = $('<button class = "modal-close"></button>');
-        $(closeButtonElement).text('Close');
-        $(closeButtonElement).on('click', hideModal);
+        let closeButton = $('<button class = "modal-close" id ="closebutton" data-dismiss="modal">Close</button>') // inject the button from JS 
+     //   let closeButtonElement = $('#closebutton');
+        closeButton.on('click', hideModal); // add the click to close 
     
         let titleElement = document.createElement('h1');
         titleElement.innerText = character.name.charAt(0).toUpperCase() + character.name.slice(1);
@@ -94,26 +96,26 @@ let characterRepository = (function() {
     
     
         //crate all modal above
-        $(modal).append(closeButtonElement);
-        $(modal).append(titleElement);
-        $(modal).append(contentElement);
-        $(modal).append(imgElement);
-        $(modalContainer).append(modal);
-        $(modalContainer).addClass('is-visible');
+        modal.append(closeButton); //  add the button to the modal 
+        modal.append(titleElement);
+        modal.append(contentElement);
+        modal.append(imgElement);
+        modalContainer.append(modal);
+        modalContainer.addClass('is-visible');
             }
     
     //to hide modal
     function hideModal(){
-        $(modalContainer).removeClass('is-visible');
+        modalContainer.removeClass('is-visible');
     }
     
     $(window).keydown(function(e) {
-        if (e.key === 'Escape' && $(modalContainer).hasClass('is-visible')){
+        if (e.key === 'Escape' && modalContainer.hasClass('is-visible')){
             hideModal();
         }
     });
     
-    $(modalContainer).click(function(e) {
+    modalContainer.click(function(e) {
         let target = e.target;
         if (target === modalContainer) {
             hideModal();
